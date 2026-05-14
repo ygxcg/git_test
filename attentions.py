@@ -1,12 +1,3 @@
-import math
-import torch
-from torch import nn
-from torch.nn import functional as F
-
-from . import commons
-import logging
-
-logger = logging.getLogger(__name__)
 
 
 class LayerNorm(nn.Module):
@@ -19,6 +10,10 @@ class LayerNorm(nn.Module):
         self.beta = nn.Parameter(torch.zeros(channels))
 
     def forward(self, x):
+        x = x.transpose(1, -1)
+        x = F.layer_norm(x, (self.channels,), self.gamma, self.beta, self.eps)
+        return x.transpose(1, -1)
+    def forward111(self, x):
         x = x.transpose(1, -1)
         x = F.layer_norm(x, (self.channels,), self.gamma, self.beta, self.eps)
         return x.transpose(1, -1)
