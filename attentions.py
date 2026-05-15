@@ -6,8 +6,6 @@ class LayerNorm(nn.Module):
         self.channels = channels
         self.eps = eps
 
-        self.gamma = nn.Parameter(torch.ones(channels))
-        self.beta = nn.Parameter(torch.zeros(channels))
 
     def forward(self, x):
         x = x.transpose(1, -1)
